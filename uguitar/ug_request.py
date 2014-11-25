@@ -3,6 +3,9 @@ __author__ = 'vince'
 import urlparse
 
 class UgRequest(object):
+    '''
+    Class to build a request for ultimate-guitar
+    '''
 
     NETLOC = 'www.ultimate-guitar.com'
     PATH = '/search.php'
@@ -27,6 +30,7 @@ class UgRequest(object):
     def titleSearch(self, searchQuery):
         '''
         Given some search keys, prepares the url tokens to search in titles
+        (simplest ug search)
 
         :param searchQuery: search keys (e.g., "<band> <song>")
         '''
@@ -36,4 +40,7 @@ class UgRequest(object):
         self._updateQueryString(queryString)
 
     def getUrl(self):
+        '''
+        Returns the url from the current tokens
+        '''
         return urlparse.urlunparse(self._request)

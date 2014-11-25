@@ -1,6 +1,9 @@
 __author__ = 'vince'
 
 class ContentHolder(object):
+    '''
+    Utility class to store curl output.
+    '''
 
     def __init__(self):
         super(ContentHolder, self).__init__()
