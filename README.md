@@ -7,3 +7,4 @@ Requirements
 ------------
 
  * python-pycurl
+ * urlparse
