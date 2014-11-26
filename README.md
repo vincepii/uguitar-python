@@ -8,3 +8,4 @@ Requirements
 
  * python-pycurl
  * urlparse
+ * python-beautifulsoup

@@ -10,7 +10,7 @@ class UrlTests(unittest.TestCase):
 
     def testTitleSearch(self):
         req = UgRequest()
-        req.titleSearch('metallica one')
+        req.titleSearch("metallica one")
         print req.getUrl()
         assert(req.getUrl() == 'http://www.ultimate-guitar.com/search.php?search_type=title&value=metallica+one')
 

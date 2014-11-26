@@ -4,7 +4,7 @@ import pycurl
 
 from content_holder import ContentHolder
 
-class Request(object):
+class HttpCurl(object):
     '''
     Class to send curl requests and get output
     '''
@@ -14,7 +14,7 @@ class Request(object):
 
         :param url: a simple string
         '''
-        super(Request, self).__init__()
+        super(HttpCurl, self).__init__()
         self._url = url
         self._contentHandler = ContentHolder()
 
