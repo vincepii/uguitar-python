@@ -15,7 +15,10 @@ class ContentTest(unittest.TestCase):
         curl = HttpCurl(url)
         response = curl.send()
         parser = UgParser(response)
-        parser.extractTabs()
+        parser.parseTabs()
+        # The first page of this request should return 53 results.
+        # If they clean up tabs and remove some, this will fail!
+        assert(len(parser.getTabs()) is 53)
 
 if __name__ == '__main__':
     unittest.main()
