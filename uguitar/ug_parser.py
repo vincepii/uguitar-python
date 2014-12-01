@@ -71,7 +71,8 @@ class UgParser(object):
         counterElement = row.find('b', attrs={'class':'ratdig'})
         if counterElement is None:
             return None
-        return counterElement.contents
+        rcounter = str(counterElement.contents[0])
+        return rcounter
 
     def _getTabTypeFromHtmlRow(self, row):
         return re.search('<td><strong>(.*)</strong></td>', str(row)).group(1)
