@@ -15,7 +15,7 @@ struct TabDescriptor {
     std::string _rating;
     std::string _ratingCounter;
     std::string _type;
-    std::string _isPlus;
+    bool _isPlus;
 
     friend std::ostream& operator<<(std::ostream& os, const TabDescriptor& desc);
 };
