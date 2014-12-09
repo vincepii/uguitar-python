@@ -25,9 +25,11 @@ class ContentTest(unittest.TestCase):
         tabs = uguitar.ug_simplesearch.search("metallica one")
         for tab in tabs:
             print tab._uri
+            print tab._artist
+            print tab._title
             print tab._rating
             print tab._ratingCounter
-            print tab._type
+            print tab._type, '\n'
 
 
 if __name__ == '__main__':
