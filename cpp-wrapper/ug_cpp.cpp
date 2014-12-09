@@ -70,6 +70,8 @@ std::vector<TabDescriptor> UgWrapper::searchTabs(std::string searchArgument) {
 
     std::vector<TabDescriptor> descriptors;
     // Fields of the python descriptor
+    PyObject *artistString = PyString_FromString("_artist");
+    PyObject *titleString = PyString_FromString("_title");
     PyObject *uriString = PyString_FromString("_uri");
     PyObject *ratingString = PyString_FromString("_rating");
     PyObject *ratingCounterString = PyString_FromString("_ratingCounter");
@@ -84,6 +86,8 @@ std::vector<TabDescriptor> UgWrapper::searchTabs(std::string searchArgument) {
             throw std::runtime_error("Error while iterating over list");
         }
 
+        PyObject *artist = PyObject_GetAttr(tabDescriptor, artistString);
+        PyObject *title = PyObject_GetAttr(tabDescriptor, titleString);
         PyObject *uri = PyObject_GetAttr(tabDescriptor, uriString);
         PyObject *rating = PyObject_GetAttr(tabDescriptor, ratingString);
         PyObject *ratingCounter = PyObject_GetAttr(tabDescriptor, ratingCounterString);
@@ -91,6 +95,10 @@ std::vector<TabDescriptor> UgWrapper::searchTabs(std::string searchArgument) {
         PyObject *isPlus = PyObject_GetAttr(tabDescriptor, isPlusString);
 
         TabDescriptor ts;
+        ts._artist = PyString_AsString(artist);
+
+        ts._title = PyString_AsString(title);
+
         ts._uri = PyString_AsString(uri);
 
         if (rating == Py_None) {
@@ -110,6 +118,8 @@ std::vector<TabDescriptor> UgWrapper::searchTabs(std::string searchArgument) {
 
         descriptors.push_back(ts);
 
+        Py_DECREF(artist);
+        Py_DECREF(title);
         Py_DECREF(uri);
         Py_DECREF(rating);
         Py_DECREF(ratingCounter);
@@ -118,6 +128,8 @@ std::vector<TabDescriptor> UgWrapper::searchTabs(std::string searchArgument) {
         Py_DECREF(tabDescriptor);
     }
 
+    Py_DECREF(artistString);
+    Py_DECREF(titleString);
     Py_DECREF(uriString);
     Py_DECREF(ratingString);
     Py_DECREF(ratingCounterString);
@@ -131,6 +143,8 @@ std::vector<TabDescriptor> UgWrapper::searchTabs(std::string searchArgument) {
 
 std::ostream& operator<<(std::ostream& os, const TabDescriptor& desc) {
     os << "URI: " << desc._uri << std::endl;
+    os << "Artist: " << desc._artist << std::endl;
+    os << "Title: " << desc._title << std::endl;
     os << "Rating: " << desc._rating << std::endl;
     os << "Votes: " << desc._ratingCounter << std::endl;
     os << "Type: " << desc._type << std::endl;
