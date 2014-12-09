@@ -51,7 +51,8 @@ class UgParser(object):
         tabRating = self._getTabRatingFromHtmlRow(row)
         tabRatingCounter = self._getTabRatingCounterFromHtmlRow(row)
         tabType = self._getTabTypeFromHtmlRow(row)
-        desc = TabDescriptor(tabUri, tabRating, tabRatingCounter, tabType)
+        artist, title = self._getArtistAndTitleFromUri(tabUri)
+        desc = TabDescriptor(artist, title, tabUri, tabRating, tabRatingCounter, tabType)
         return desc
 
     def _getTabUriFromHtmlRow(self, row):
@@ -76,3 +77,13 @@ class UgParser(object):
 
     def _getTabTypeFromHtmlRow(self, row):
         return re.search('<td><strong>(.*)</strong></td>', str(row)).group(1)
+
+    def _getArtistAndTitleFromUri(self, uri):
+        if uri.startswith(TabDescriptor.TAB_PRO_START):
+            artist = re.search('\?artist=(.*)&', uri).group(1)
+            title = re.search('&song=(.*)$', uri).group(1)
+        else:
+            uri_tokens = uri.split('/')
+            artist = uri_tokens[-2]
+            title = uri_tokens[-1].rsplit('.htm')[0]
+        return artist, title
