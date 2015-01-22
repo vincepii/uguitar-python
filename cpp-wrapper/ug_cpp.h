@@ -3,12 +3,12 @@
 
 #include <string>
 #include <vector>
-#include <python2.7/Python.h>
+#include <boost/python.hpp>
 
 namespace ug {
 
-static const std::string MODULE_NAME = "uguitar.ug_simplesearch";
-static const std::string FUNCTION_NAME = "search";
+static const boost::python::str MODULE_NAME = "uguitar.ug_simplesearch";
+static const boost::python::str FUNCTION_NAME = "search";
 
 struct TabDescriptor {
     std::string _artist;
@@ -24,8 +24,8 @@ struct TabDescriptor {
 
 class UgWrapper {
 
-    PyObject *_pyModule;
-    PyObject *_pyFunc;
+    boost::python::object _pyModule;
+    boost::python::object _pyFunc;
 
 public:
     UgWrapper();
